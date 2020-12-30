@@ -6,9 +6,220 @@
     <script src="lib/http.js"></script>
     <script src="dictionary-plugin.js"></script>
     <script src="historical-telemetry-plugin.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #021114 !important;
+        }
+
+        .c-object-label__name {
+            color: #a1ecfb;
+            margin: 0 0 20px;
+            transition: color 250ms ease-out;
+            font-family: "Electrolize", "sans-serif";
+            font-weight: bold;
+            text-shadow: 0 0 4px rgba(161,236,251,0.65);
+            text-transform: uppercase;
+        }
+
+        .l-pane__handle {
+            background: #26dafd !important;
+        }
+
+        .c-create-button {
+            border: 1px solid #26dafd !important;
+            margin: 0;
+            border: none;
+            z-index: 2;
+            width: 150px;
+            padding: 10px 20px !important;
+            outline: none;
+            position: relative;
+            font-size: 15.75px !important;
+            background: transparent !important;
+            transition: all 250ms ease-out;
+            line-height: 1 !important;
+            user-select: none !important;
+            color: #acf9fb !important;
+            cursor: pointer !important;
+            vertical-align: middle;
+        }
+
+        .loading-screen {
+            background: orange;
+            position: absolute;
+            z-index: 100;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes move-background {
+            from {
+                -webkit-transform: translate3d(0px, 0px, 0px);
+            }
+            to {
+                -webkit-transform: translate3d(1000px, 0px, 0px);
+            }
+        }
+        @-webkit-keyframes move-background {
+            from {
+                -webkit-transform: translate3d(0px, 0px, 0px);
+            }
+            to {
+                -webkit-transform: translate3d(1000px, 0px, 0px);
+            }
+        }
+        @-moz-keyframes move-background {
+            from {
+                -webkit-transform: translate3d(0px, 0px, 0px);
+            }
+            to {
+                -webkit-transform: translate3d(1000px, 0px, 0px);
+            }
+        }
+        @-webkit-keyframes move-background {
+            from {
+                -webkit-transform: translate3d(0px, 0px, 0px);
+            }
+            to {
+                -webkit-transform: translate3d(1000px, 0px, 0px);
+            }
+        }
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+        .stars {
+            background: black url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png) repeat;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: block;
+            z-index: 0;
+        }
+        .twinkling {
+            width: 10000px;
+            height: 100%;
+            background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png") repeat;
+            background-size: 1000px 1000px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 2;
+            -moz-animation: move-background 70s linear infinite;
+            -ms-animation: move-background 70s linear infinite;
+            -o-animation: move-background 70s linear infinite;
+            -webkit-animation: move-background 70s linear infinite;
+            animation: move-background 70s linear infinite;
+        }
+        .clouds {
+            width: 10000px;
+            height: 100%;
+            background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/clouds_repeat.png") repeat;
+            background-size: 1000px 1000px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 3;
+            -moz-animation: move-background 150s linear infinite;
+            -ms-animation: move-background 150s linear infinite;
+            -o-animation: move-background 150s linear infinite;
+            -webkit-animation: move-background 150s linear infinite;
+            animation: move-background 150s linear infinite;
+        }
+        img {
+            height: 70vh;
+            width: 70vh;
+            position: absolute;
+            z-index: 3;
+            right: 20px;
+        }
+
+        .blue-overlay {
+            background: rgb(0 142 171 / 16%);
+            position: absolute;
+            z-index: 100;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .paragraph-redesign {
+           color: #26dafd;
+           font-size: 21px;
+           line-height: 31.5px;
+        }
+
+        .blue-overlay .c-object-label__name {
+            font-size: 4rem;
+        }
+
+        .blue-overlay .c-create-button {
+            text-align: center;
+        }
+
+        .c-create-button:hover {
+            border: 1px solid #c3e4eb !important;
+        }
+ 
+    </style>
 </head>
 <body>
+    <div id="intro-overlay" class="loading-screen">
+        <div class="blue-overlay">
+            <div>
+                <h2 class="c-object-label__name">
+                    NASA openMCT
+                </h2>
+                <p class="paragraph-redesign">
+                    A redesign by JuanCarlos inspired by arwes.dev 
+                </p>
+                <div>
+                    <button id="try-redesign" class="c-create-button">
+                        Try Redesign
+                    </button>
+                    <button id="open-website" class="c-create-button">
+                        About me
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="background-container">
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png" alt="">
+            <div class="stars"></div>
+            <div class="twinkling"></div>
+            <div class="clouds"></div>
+        </div>
+    </div>
     <script>
+        document.getElementById("try-redesign").addEventListener('click', ()=>{
+            console.log('pressed');
+            document.getElementById("intro-overlay").remove()
+        })
+
+        document.getElementById("open-website").addEventListener('click', ()=>{
+            console.log('pressed 2');
+            const win = window.open('https://juancarlos.codes/', '_blank');
+            win.focus();
+        })
+
         openmct.setAssetPath('node_modules/openmct/dist');
         openmct.install(openmct.plugins.LocalStorage());
         openmct.install(openmct.plugins.MyItems());
